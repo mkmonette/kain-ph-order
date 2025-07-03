@@ -66,66 +66,88 @@ const featuredItems = [
 
 const FeaturedItems = () => {
   return (
-    <section id="menu" className="py-20 bg-muted/30">
+    <section id="menu" className="py-24 bg-background">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Featured Dishes
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 bg-secondary/10 text-secondary px-4 py-2 rounded-full text-sm font-medium mb-6">
+            ⭐ Featured Dishes
+          </div>
+          <h2 className="text-4xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
+            Taste the Best of
+            <span className="bg-gradient-market bg-clip-text text-transparent block">
+              Filipino Cuisine
+            </span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Taste the best of Filipino cuisine from our partner vendors. 
-            Each dish is prepared with love and authentic flavors.
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            Each dish is lovingly prepared by our partner vendors using authentic recipes 
+            and the freshest ingredients. Experience the true flavors of the Philippines.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {featuredItems.map((item) => (
-            <Card key={item.id} className="group hover:shadow-warm transition-smooth cursor-pointer">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {featuredItems.map((item, index) => (
+            <Card 
+              key={item.id} 
+              className="group hover:shadow-glow transition-all duration-500 cursor-pointer border-border/30 bg-card hover:-translate-y-1"
+              style={{ animationDelay: `${index * 150}ms` }}
+            >
               <CardContent className="p-0">
-                <div className="relative">
-                  {/* Image placeholder */}
-                  <div className="bg-gradient-subtle h-48 flex items-center justify-center text-6xl rounded-t-lg">
-                    {item.image}
+                <div className="relative overflow-hidden">
+                  {/* Enhanced Image placeholder */}
+                  <div className="bg-gradient-subtle h-64 flex items-center justify-center text-7xl rounded-t-lg relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5"></div>
+                    <span className="relative z-10 group-hover:scale-110 transition-bounce duration-500">
+                      {item.image}
+                    </span>
                   </div>
                   
-                  {/* Popular badge */}
+                  {/* Enhanced Popular badge */}
                   {item.isPopular && (
-                    <div className="absolute top-4 left-4 bg-accent text-accent-foreground text-xs px-2 py-1 rounded-full font-semibold">
-                      Popular
+                    <div className="absolute top-4 left-4 bg-gradient-primary text-primary-foreground text-xs px-3 py-2 rounded-full font-bold shadow-warm">
+                      🔥 Popular
                     </div>
                   )}
                   
-                  {/* Price */}
-                  <div className="absolute top-4 right-4 bg-card shadow-card rounded-lg px-3 py-1">
-                    <span className="text-primary font-bold">₱{item.price}</span>
+                  {/* Enhanced Price */}
+                  <div className="absolute top-4 right-4 bg-card/95 backdrop-blur-md shadow-glow rounded-xl px-4 py-2 border border-border/50">
+                    <span className="text-primary font-bold text-lg">₱{item.price}</span>
+                  </div>
+
+                  {/* Rating overlay */}
+                  <div className="absolute bottom-4 left-4 bg-card/95 backdrop-blur-md rounded-lg px-3 py-1 border border-border/50">
+                    <div className="flex items-center gap-1">
+                      <span className="text-yellow-500 text-sm">⭐</span>
+                      <span className="text-sm font-bold text-foreground">{item.rating}</span>
+                    </div>
                   </div>
                 </div>
 
-                <div className="p-6">
-                  <div className="flex items-start justify-between mb-2">
-                    <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-smooth">
+                <div className="p-6 space-y-4">
+                  <div>
+                    <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-smooth mb-1">
                       {item.name}
                     </h3>
-                    <div className="flex items-center space-x-1">
-                      <span className="text-yellow-500">⭐</span>
-                      <span className="text-sm text-muted-foreground">{item.rating}</span>
+                    <p className="text-muted-foreground leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                  
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-muted-foreground font-medium">
+                      by {item.vendor}
+                    </span>
+                    <div className="flex items-center gap-1">
+                      <div className="w-2 h-2 bg-secondary rounded-full animate-pulse"></div>
+                      <span className="text-secondary font-medium">Available</span>
                     </div>
                   </div>
-                  
-                  <p className="text-muted-foreground text-sm mb-3 line-clamp-2">
-                    {item.description}
-                  </p>
-                  
-                  <div className="text-xs text-muted-foreground mb-4">
-                    by {item.vendor}
-                  </div>
 
-                  <div className="flex gap-2">
-                    <Button variant="default" size="sm" className="flex-1">
-                      Add to Cart
+                  <div className="flex gap-3 pt-2">
+                    <Button variant="default" size="sm" className="flex-1 rounded-xl">
+                      🛒 Add to Cart
                     </Button>
-                    <Button variant="outline" size="sm">
-                      View
+                    <Button variant="outline" size="sm" className="rounded-xl">
+                      👁️ View
                     </Button>
                   </div>
                 </div>
@@ -134,9 +156,9 @@ const FeaturedItems = () => {
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <Button variant="hero" size="lg">
-            View Full Menu
+        <div className="text-center mt-16">
+          <Button variant="hero" size="lg" className="px-12 py-6 text-xl rounded-2xl">
+            🍽️ View Full Menu
           </Button>
         </div>
       </div>
